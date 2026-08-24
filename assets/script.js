@@ -1,5 +1,3 @@
-console.log("Le fichier JavaScript est bien chargé");
-
 const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 
@@ -30,3 +28,14 @@ const slides = [
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
 ];
+
+const dots = document.querySelector(".dots");
+
+for (let i = 0; i < slides.length; i++) {
+  const dot = document.createElement("div");
+  dot.classList.add("dot");
+  if (i === 0) {
+    dot.classList.add("dot_selected");
+  }
+  dots.appendChild(dot);
+}
