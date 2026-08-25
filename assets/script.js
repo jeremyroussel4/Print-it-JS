@@ -1,3 +1,10 @@
+// Je récupère les éléments HTML.
+const arrowLeft = document.querySelector(".arrow_left");
+const arrowRight = document.querySelector(".arrow_right");
+const image = document.querySelector(".banner-img");
+const tagLine = document.querySelector("#banner p");
+
+// Je prépare les données des slides.
 const slides = [
   {
     image: "slide1.jpg",
@@ -18,41 +25,11 @@ const slides = [
   },
 ];
 
-const arrowLeft = document.querySelector(".arrow_left");
-const arrowRight = document.querySelector(".arrow_right");
-const image = document.querySelector(".banner-img");
-const tagLine = document.querySelector("#banner p");
-
+// Je définis la slide affichée au départ.
 let currentSlide = 0;
 
-arrowLeft.addEventListener("click", function () {
-  console.log("gauche");
-  if (currentSlide > 0) {
-    currentSlide--;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-  } else {
-    currentSlide = slides.length - 1;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-  }
-});
-
-arrowRight.addEventListener("click", function () {
-  console.log("droite");
-  if (currentSlide < slides.length - 1) {
-    currentSlide++;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-  } else {
-    currentSlide = 0;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-  }
-});
-
+// Je récupère le conteneur des dots et je crée les dots.
 const dots = document.querySelector(".dots");
-
 for (let i = 0; i < slides.length; i++) {
   const dot = document.createElement("div");
   dot.classList.add("dot");
@@ -61,3 +38,46 @@ for (let i = 0; i < slides.length; i++) {
   }
   dots.appendChild(dot);
 }
+
+// Je définis comment mettre à jour les dots.
+const updateDots = () => {
+  const dotElements = document.querySelectorAll(".dot");
+  dotElements.forEach((dot, index) => {
+    if (index === currentSlide) {
+      dot.classList.add("dot_selected");
+    } else {
+      dot.classList.remove("dot_selected");
+    }
+  });
+};
+
+// Je définis ce qui se passe lors des clics.
+arrowRight.addEventListener("click", function () {
+  console.log("droite");
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
+    tagLine.innerHTML = slides[currentSlide].tagLine;
+    updateDots();
+  } else {
+    currentSlide = 0;
+    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
+    tagLine.innerHTML = slides[currentSlide].tagLine;
+    updateDots();
+  }
+});
+
+arrowLeft.addEventListener("click", function () {
+  console.log("gauche");
+  if (currentSlide > 0) {
+    currentSlide--;
+    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
+    tagLine.innerHTML = slides[currentSlide].tagLine;
+    updateDots();
+  } else {
+    currentSlide = slides.length - 1;
+    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
+    tagLine.innerHTML = slides[currentSlide].tagLine;
+    updateDots();
+  }
+});
