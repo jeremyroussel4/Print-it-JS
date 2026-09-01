@@ -3,6 +3,7 @@ const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 const image = document.querySelector(".banner-img");
 const tagLine = document.querySelector("#banner p");
+const dotsContainer = document.querySelector(".dots");
 
 // Je prépare les données des slides.
 const slides = [
@@ -25,23 +26,19 @@ const slides = [
   },
 ];
 
-// Je définis la slide affichée au départ.
 let currentSlide = 0;
 
-// Je récupère le conteneur des dots et je crée les dots.
-const dots = document.querySelector(".dots");
+// Je crée les points pour chaque slide.
 for (let i = 0; i < slides.length; i++) {
   const dot = document.createElement("div");
   dot.classList.add("dot");
-  if (i === 0) {
-    dot.classList.add("dot_selected");
-  }
-  dots.appendChild(dot);
+  dotsContainer.appendChild(dot);
 }
 
-// Je définis comment mettre à jour les dots.
+// Je mets à jour l’état visuel du carrousel.
 const updateDots = () => {
   const dotElements = document.querySelectorAll(".dot");
+
   dotElements.forEach((dot, index) => {
     if (index === currentSlide) {
       dot.classList.add("dot_selected");
@@ -51,33 +48,22 @@ const updateDots = () => {
   });
 };
 
-// Je définis ce qui se passe lors des clics.
-arrowRight.addEventListener("click", function () {
-  console.log("droite");
-  if (currentSlide < slides.length - 1) {
-    currentSlide++;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-    updateDots();
-  } else {
-    currentSlide = 0;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-    updateDots();
-  }
+// Je centralise le changement de slide pour éviter la répétition.
+const showSlide = (index) => {
+  currentSlide = (index + slides.length) % slides.length;
+  image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
+  tagLine.innerHTML = slides[currentSlide].tagLine;
+  updateDots();
+};
+
+// On initialise le carrousel au chargement.
+showSlide(0);
+
+// Je gère les clics sur les flèches.
+arrowRight.addEventListener("click", () => {
+  showSlide(currentSlide + 1);
 });
 
-arrowLeft.addEventListener("click", function () {
-  console.log("gauche");
-  if (currentSlide > 0) {
-    currentSlide--;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-    updateDots();
-  } else {
-    currentSlide = slides.length - 1;
-    image.src = "./assets/images/slideshow/" + slides[currentSlide].image;
-    tagLine.innerHTML = slides[currentSlide].tagLine;
-    updateDots();
-  }
+arrowLeft.addEventListener("click", () => {
+  showSlide(currentSlide - 1);
 });
