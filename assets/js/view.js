@@ -6,6 +6,7 @@ const dotsContainer = document.querySelector(".dots");
 
 let dots;
 
+//Créer les points de navigation
 export const createDots = (numberOfSlides) => {
   for (let index = 0; index < numberOfSlides; index++) {
     const dot = document.createElement("div");
@@ -16,6 +17,7 @@ export const createDots = (numberOfSlides) => {
   dots = document.querySelectorAll(".dot");
 };
 
+//Afficher la slide actuelle utilisation de toggle pour gérer la classe dot_selected
 export const renderSlide = (slide, currentIndex) => {
   image.src = "./assets/images/slideshow/" + slide.image;
   tagLine.innerHTML = slide.tagLine;

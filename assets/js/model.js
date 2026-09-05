@@ -18,24 +18,30 @@ export const slides = [
   },
 ];
 
+//Index de la slide actuellement affichée
 let currentSlide = 0;
 
+//Quelle slide doit être affichée actuellement ?
 export const getCurrentSlide = () => {
   return slides[currentSlide];
 };
 
+//Quelle est l'index de la slide actuellement affichée ?
 export const getCurrentIndex = () => {
   return currentSlide;
 };
 
+//Connaître le nombre de slides
 export const getSlidesCount = () => {
   return slides.length;
 };
 
+//Passer à la slide suivante
 export const nextSlide = () => {
   currentSlide = (currentSlide + 1) % slides.length;
 };
 
+//Passer à la slide précédente
 export const previousSlide = () => {
   currentSlide = (currentSlide - 1 + slides.length) % slides.length;
 };
