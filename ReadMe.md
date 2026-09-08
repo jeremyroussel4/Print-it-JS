@@ -29,7 +29,7 @@ L'objectif est de dynamiser le site web statique d'une petite imprimerie familia
 - Modifier dynamiquement le contenu d'une page web
 - Créer un carrousel interactif
 - Organiser le JavaScript avec des modules ES6 (`import` et `export`)
-- Séparer les responsabilités avec une architecture MVC
+- Séparer les responsabilités entre la gestion de l'état et la manipulation du DOM
 - Utiliser Git et GitHub pour versionner un projet
 
 ## ✨ Fonctionnalités
@@ -44,15 +44,14 @@ Le carrousel permet de :
 
 ## 🧱 Architecture JavaScript
 
-Le carrousel est organisé selon le modèle MVC :
+Le carrousel sépare la gestion de l'état de l'interface :
 
 - `model.js` contient les données des slides et l'état courant du carrousel ;
-- `view.js` manipule le DOM, crée les dots et affiche les slides ;
-- `controller.js` relie les actions de l'utilisateur au Model et à la View ;
+- `controller.js` gère les interactions utilisateur, manipule le DOM, crée les dots et affiche les slides ;
 - `main.js` initialise le carrousel ;
 - `archive/script.js` conserve l'ancienne version du carrousel avant la refactorisation.
 
-Cette séparation permet de distinguer les données, l'affichage et la logique de coordination.
+Pour ce carrousel, l'affichage et la coordination sont réunis dans le contrôleur afin de garder une structure simple. Le modèle reste responsable des données et de la navigation entre les slides.
 
 ## 📂 Installation
 
@@ -85,7 +84,6 @@ Print-it-JS/
 		├── controller.js
 		├── main.js
 		├── model.js
-		├── view.js
 		└── archive/
 			└── script.js
 ```
@@ -94,7 +92,7 @@ Print-it-JS/
 
 Lorsqu'une flèche ou un dot est cliqué :
 
-1. la View détecte l'événement ;
+1. le Controller détecte l'événement ;
 2. le Controller demande au Model de modifier la slide courante ;
 3. le Controller relit l'état du Model ;
-4. la View actualise l'image, le texte et le dot sélectionné.
+4. le Controller actualise l'image, le texte et le dot sélectionné dans le DOM.
