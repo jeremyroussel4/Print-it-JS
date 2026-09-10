@@ -38,7 +38,9 @@ export const getSlidesCount = () => {
 
 //Passer à la slide suivante
 export const nextSlide = () => {
+  console.log("[MODEL] nextSlide() - currentSlide avant :", currentSlide);
   currentSlide = (currentSlide + 1) % slides.length;
+  console.log("[MODEL] nextSlide() - currentSlide après :", currentSlide);
 };
 
 //Passer à la slide précédente
