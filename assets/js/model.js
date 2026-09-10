@@ -23,16 +23,19 @@ let currentSlide = 0;
 
 //Quelle slide doit être affichée actuellement ?
 export const getCurrentSlide = () => {
+  console.log("[MODEL] getCurrentSlide() -> slide :", slides[currentSlide].image);
   return slides[currentSlide];
 };
 
 //Quelle est l'index de la slide actuellement affichée ?
 export const getCurrentIndex = () => {
+  console.log("[MODEL] getCurrentIndex() -> index :", currentSlide);
   return currentSlide;
 };
 
 //Connaître le nombre de slides
 export const getSlidesCount = () => {
+  console.log("[MODEL] getSlidesCount() -> nombre :", slides.length);
   return slides.length;
 };
 
